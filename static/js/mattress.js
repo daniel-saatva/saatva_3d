@@ -7,7 +7,7 @@ const gltfLoader = new THREE.GLTFLoader();
 function init() {
     gltfLoader.load('/mattress_nologo.gltf', function ( gltf ) {
         mattress = gltf.scene;
-        scene.add( gltf.scene );
+        scene.add( mattress );
     }, undefined, function ( error ) {
         console.error( error );
     });
@@ -17,11 +17,12 @@ function init() {
     const light2 = new THREE.PointLight( 0xffffff, 0.5 );
     scene.add( light2 );
 
-    const image_slider = document.getElementById('image-slider');
-    image_slider.innerHTML = "";
+    const imageSlider = document.getElementById('image-slider');
+    imageSlider.innerHTML = "";
     renderer.setClearColor( 0xffffff );
-    renderer.setSize(image_slider.offsetWidth , image_slider.offsetHeight );
-    image_slider.appendChild( renderer.domElement );
+    renderer.setSize(imageSlider.offsetWidth, imageSlider.offsetHeight );
+    imageSlider.appendChild( renderer.domElement );
+    THREE.OrbitControls( camera, renderer.domElement );
 
     camera.position.z = 20;
     camera.position.y = 3;
@@ -31,7 +32,7 @@ function init() {
 
 const animate = function () {
     requestAnimationFrame( animate );
-    mattress.rotation.y += 0.01;
+    // mattress.rotation.y += 0.01;
     renderer.render( scene, camera );
 };
 
