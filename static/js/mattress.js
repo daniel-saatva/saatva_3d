@@ -18,10 +18,14 @@ function init(mattress_model = '/mattress_nologo.gltf') {
     const light2 = new THREE.PointLight( 0xffffff, 0.5 );
     scene.add( light2 );
 
-    const imageSlider = document.getElementById('image-slider');
+    const imageSlider = document.querySelector('.productImageSlider');
+    const thumbnailSlider = document.querySelector('.productThumbnailSlider');
+
     imageSlider.innerHTML = "";
+    thumbnailSlider.innerHTML = "";
+
     renderer.setClearColor( 0xffffff );
-    renderer.setSize(imageSlider.offsetWidth, imageSlider.offsetHeight );
+    renderer.setSize(imageSlider.offsetWidth, imageSlider.offsetHeight + 30 );
     imageSlider.appendChild( renderer.domElement );
     THREE.OrbitControls( camera, renderer.domElement );
 
@@ -37,12 +41,13 @@ const animate = function () {
     renderer.render( scene, camera );
 };
 
-const size_ul = document.getElementById('loom_size_select');
+const dropdown = document.getElementById('loom_size_select');
 
-size_ul.addEventListener('click', ()=>{
-    const selected_size = document.querySelector('.is-selected');
-    let size_value = selected_size.getAttribute('value');
-    size_value == '7060-3/3' ? init('/mattress_nologo.gltf') : init('/mattress_twin_nologo.gltf');
+dropdown.addEventListener('click', () => {
+    const selectedSize = document.querySelector('.is-selected');
+    let value = selectedSize.getAttribute('value');
+    console.log('value', value)
+    value === '7060-3/3' ? init('/mattress_nologo.gltf') : init('/mattress_twin_nologo.gltf');
 });
 
 window.onload = init()
