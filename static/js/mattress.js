@@ -23,9 +23,11 @@ function init(mattress_model = "/mattress_nologo.gltf") {
     }
   );
 
-  const light1 = new THREE.AmbientLight(0xffffff, 1);
-  scene.add(light1);
-  const light2 = new THREE.PointLight(0xffffff, 0.5);
+  const light1 = new THREE.HemisphereLight(0xe2f9ff, 0xffffff, 0.5);
+  scene.add( light1 );
+  const light2 = new THREE.DirectionalLight(0xffffff, 0.5);
+  light2.position = { x: 15, y: 15, z: 10 };
+  light2.castShadow = true; // default false
   scene.add(light2);
 
   const imageSlider = document.querySelector(".productImageSlider");
