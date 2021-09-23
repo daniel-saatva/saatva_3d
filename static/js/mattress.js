@@ -1,7 +1,9 @@
 let scene, camera, gltfLoader, mattress;
 const renderer = new THREE.WebGLRenderer();
+renderer.toneMapping = THREE.ReinhardToneMapping;
+renderer.shadowMap.enabled = true;
 
-function init(mattress_model = "/mattress_nologo.gltf") {
+function init(mattress_model = "/mattress_solaire_nologo.gltf") {
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(
     50,
@@ -16,6 +18,17 @@ function init(mattress_model = "/mattress_nologo.gltf") {
     mattress_model,
     function (gltf) {
       mattress = gltf.scene;
+
+      mattress.traverse = n => {
+        if(n.isMesh) {
+          n.castShadow = true;
+          n.receiveShadow = true;
+
+          if(n.material.map) n.material.map.anisotropy = 16;
+        }
+      }
+      
+
       scene.add(mattress);
     },
     undefined,
@@ -24,11 +37,12 @@ function init(mattress_model = "/mattress_nologo.gltf") {
     }
   );
 
-  const light1 = new THREE.HemisphereLight(0xe2f9ff, 0xffffff, 0.5);
+  const light1 = new THREE.HemisphereLight(0xffeeb1, 0xffeebb, 3);
   scene.add( light1 );
-  const light2 = new THREE.DirectionalLight(0xffffff, 0.5);
-  light2.position = { x: 15, y: 15, z: 10 };
-  light2.castShadow = true; // default false
+
+  const light2 = new THREE.DirectionalLight(0xffffff, 3);
+  light2.position.set(-15,15,10);
+  light2.castShadow = true;
   scene.add(light2);
 
   const imageSlider = document.querySelector(".productImageSlider");
@@ -57,9 +71,15 @@ const dropdown = document.getElementById("loom_size_select");
 dropdown.addEventListener("change", (event) => {
   let value = event.target.value;
   console.log("value", value);
-  value === "queen"
-    ? init("/mattress_nologo.gltf")
-    : init("/mattress_solaire_nologo.gltf");
+  if(value === "queen") {
+    init("/mattress_nologo.gltf");
+  } else if(value === "solaire") {
+    init("/mattress_solaire_nologo.gltf");
+  } else if(value === "twin") {
+      init("/mattress_twin_nologo.gltf");
+  } else {
+    init("/mattress.gltf");
+  }
 });
 
 window.onload = init();
