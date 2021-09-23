@@ -31,10 +31,8 @@ function init(mattress_model = "/mattress_nologo.gltf") {
   scene.add(light2);
 
   const imageSlider = document.querySelector(".productImageSlider");
-  const thumbnailSlider = document.querySelector(".productThumbnailSlider");
 
   imageSlider.innerHTML = "";
-  thumbnailSlider.innerHTML = "";
 
   renderer.setClearColor(0xffffff);
   renderer.setSize(imageSlider.offsetWidth, imageSlider.offsetHeight + 30);
