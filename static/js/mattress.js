@@ -1,14 +1,11 @@
-let mattress;
+let scene, camera, gltfLoader, mattress;
 const renderer = new THREE.WebGLRenderer();
-let scene = new THREE.Scene();
-let camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-let gltfLoader = new THREE.GLTFLoader();
 
 function init(mattress_model = '/mattress_nologo.gltf') {
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
     gltfLoader = new THREE.GLTFLoader();
-    
+
     gltfLoader.load(mattress_model, function ( gltf ) {
         mattress = gltf.scene;
         scene.add( mattress );
@@ -40,25 +37,12 @@ const animate = function () {
     renderer.render( scene, camera );
 };
 
-const size_dropdown = document.querySelector('.dropdown__select');
-/* console.log(size_dropdown);
-
-size_dropdown.addEventListener('change', (event) => {
-    console.log(event.target.value);
-}); */
-
-/* function show_value(){
-    console.log(size_dropdown.value);
-};
-*/
 const size_ul = document.getElementById('loom_size_select');
 
 size_ul.addEventListener('click', ()=>{
     const selected_size = document.querySelector('.is-selected');
-    let size_value = selected_size.getAttribute('value');    
-    size_value == '7060-3/3' ? init('/mattress_nologo.gltf') : init('/mattress.gltf');    
+    let size_value = selected_size.getAttribute('value');
+    size_value == '7060-3/3' ? init('/mattress_nologo.gltf') : init('/mattress_twin_nologo.gltf');
 });
-
-
 
 window.onload = init()
