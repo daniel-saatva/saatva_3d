@@ -4,11 +4,12 @@ const renderer = new THREE.WebGLRenderer();
 function init(mattress_model = "/mattress_nologo.gltf") {
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(
-    75,
+    50,
     window.innerWidth / window.innerHeight,
     0.1,
     1000
   );
+
   gltfLoader = new THREE.GLTFLoader();
 
   gltfLoader.load(
