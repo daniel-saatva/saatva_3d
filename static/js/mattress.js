@@ -6,7 +6,7 @@ renderer.shadowMap.enabled = true;
 function init(mattress_model = "/mattress_solaire_nologo.gltf") {
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(
-    50,
+    55,
     window.innerWidth / window.innerHeight,
     0.1,
     1000
