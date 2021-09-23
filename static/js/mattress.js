@@ -53,13 +53,12 @@ const animate = function () {
 
 const dropdown = document.getElementById("loom_size_select");
 
-dropdown.addEventListener("click", () => {
-  const selectedSize = document.querySelector(".is-selected");
-  let value = selectedSize.getAttribute("value");
+dropdown.addEventListener("change", (event) => {
+  let value = event.target.value;
   console.log("value", value);
-  value === "7060-3/3"
+  value === "queen"
     ? init("/mattress_nologo.gltf")
-    : init("/mattress_twin_nologo.gltf");
+    : init("/mattress_solaire_nologo.gltf");
 });
 
 window.onload = init();
